@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MockFormComponent } from './mock-form/mock-form.component';
+import { MockFormService } from './mock-form/mock-form.service';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,7 @@ import { MockFormComponent } from './mock-form/mock-form.component';
     BrowserModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [MockFormService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

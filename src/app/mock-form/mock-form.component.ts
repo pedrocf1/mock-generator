@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl, ValidatorFn } from '@angular/forms';
+import { MockFormService } from './mock-form.service';
+import { FieldType } from './model/fieldType.interface';
 
 function ratingRange(min:number, max:number): ValidatorFn{
   return (c: AbstractControl): {[key: string]: boolean} | null =>{
@@ -32,38 +34,52 @@ function emailMatcher(c:AbstractControl): {[key:string]:boolean}|null{
 export class MockFormComponent implements OnInit {
 
   formMock:FormGroup
+  fieldTypes:Array<FieldType>
 
-  constructor(private _fb: FormBuilder) { }
+  get mockField():FormArray{
+    return this.formMock.get("mockField") as FormArray
+  }
+
+  constructor(private _fb: FormBuilder,
+              private _mockSerivece:MockFormService) { }
 
   ngOnInit() {
     this.initiateFormMock()
+    this.getFieldTypes()
+    console.log("this.formMock",this.formMock)
+  }
+  
+  getFieldTypes=()=>{
+    this.fieldTypes = this._mockSerivece.fieldTypes()
   }
 
   initiateFormMock=()=>{
-    this.buildFormMock()
-  }
-
-  buildFormMock=()=>{
     this.formMock = this._fb.group({
       mockField: this._fb.array([this.buildField()])
     })
   }
 
   buildField=(): FormGroup=>{
-    return this._fb.group({
+    const formGroup=this._fb.group({
       fieldName:["",[Validators.required]],
-      fieldType:["",[Validators.required]],
-      optionalsFields: this._fb.array([this.buildOptionalsFields()])
+      fieldType:["",[Validators.required]]
     })
+    formGroup.get("fieldType").valueChanges.subscribe(value=> this.fieldTypeSelection(formGroup, value))
+    return formGroup
+  }
+
+  getOptionalsFieldsFormGroupFrom=(formGroup:FormGroup):FormGroup=>{
+    return formGroup.get("optionalsFields") as FormGroup
+  }
+  
+  fieldTypeSelection=(formGroup:FormGroup, value)=>{
+    formGroup.addControl("optionalsFields", this.buildOptionalsFields())
+    console.log("this.formMock",this.formMock)
   }
 
   buildOptionalsFields=():FormGroup=>{
     return this._fb.group({
-      intRating:[null],//criar validador aqui que tem na outra branch
-      textArray:[null],
-      intArray:[null],
-      textOnly:[null],
-      intOnly:[null]
+      paramValue:[""]
     })
   }
 

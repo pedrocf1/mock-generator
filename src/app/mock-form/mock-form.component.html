@@ -3,5 +3,30 @@
 
 <div class="container">
     <h1 class="w-100 text-center">Welcome to Mock Generator</h1>
+    
+    <form [formGroup]="formMock">
+
+        <div formArrayName="mockField">
+            <div class="row" [formGroupName]="i" *ngFor="let formField of mockField.controls; let i=index">
+                <div class="form-group col-md-4">
+                    <label attr.for="{{'fieldName'+i}}">Field Name</label>
+                    <input type="text" formControlName="fieldName" class="form-control" id="{{'fieldName'+i}}" aria-describedby="Field Name" placeholder="Field Name">
+                    <small id="emailHelp" class="form-text text-muted">Key value that will be in the json mock</small>
+                </div>
+                <div class="form-group col-md-4">
+                    <label attr.for="{{'fieldType'+i}}">Field Type</label>
+                    <!-- form-control-lg -->
+                    <select formControlName="fieldType" id="{{'fieldType'+i}}" class="form-control">
+                        <option *ngFor="let type of fieldTypes" [value]="type.value">{{type.label}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </form>
 
 </div>
+<!-- 
+<pre>
+    {{formMock | json}}
+</pre> -->
