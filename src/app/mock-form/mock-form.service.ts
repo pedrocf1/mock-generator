@@ -19,23 +19,23 @@ export class MockFormService {
       },
       {
         value:"intRange",
-        label:"Integer with Limited Range"
+        label:"Integer with Range"
       },
       {
         value:"textOnly",
         label:"Text Only"
       },
       {
-        value:"textOnlyLimited",
-        label:"Text Only Limited Range"
+        value:"textOnlyRange",
+        label:"Text Only Range"
       },
       {
         value:"Alphanumeric",
         label:"Alphanumeric"
       },
       {
-        value:"AlphanumericLimited",
-        label:"Alphanumeric Limited Range"
+        value:"AlphanumericRange",
+        label:"Alphanumeric Range"
       }
 
     ]

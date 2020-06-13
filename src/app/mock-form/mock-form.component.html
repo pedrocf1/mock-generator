@@ -2,7 +2,7 @@
 
 
 <div class="container">
-    <h1 class="w-100 text-center">Welcome to Mock Generator</h1>
+    <h1 class="w-100 text-center">Welcome to Mock Generator :D</h1>
     
     <form [formGroup]="formMock">
 
@@ -20,13 +20,19 @@
                         <option *ngFor="let type of fieldTypes" [value]="type.value">{{type.label}}</option>
                     </select>
                 </div>
+                <div *ngIf="getOptionalsField(i)?.get('validatorType').value=='range'" class="form-group col-md-4">
+                    <div formGroupName="optionalsFields">
+                        <label for="">Min Range</label>
+                        <input type="text" formControlName="minRange" class="form-control" aria-describedby="minRange" placeholder="minRange">
+
+                        <label for="">Max Range</label>
+                        <input type="text" formControlName="maxRange" class="form-control" aria-describedby="maxRange" placeholder="maxRange">
+                    </div>
+                </div>
             </div>
+        
         </div>
 
     </form>
 
 </div>
-<!-- 
-<pre>
-    {{formMock | json}}
-</pre> -->
