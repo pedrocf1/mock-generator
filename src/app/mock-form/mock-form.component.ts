@@ -56,6 +56,11 @@ export class MockFormComponent implements OnInit {
     })
   }
 
+  addField=()=>{
+    // console.log("ADD FIELD",this.mockField)
+    this.mockField.push(this.buildField())
+  }
+
   buildField=(): FormGroup=>{
     const formGroup=this._fb.group({
       fieldName:["",[Validators.required]],
@@ -98,5 +103,6 @@ export class MockFormComponent implements OnInit {
     
     return formGroup
   }
+
 
 }

@@ -15,7 +15,6 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label attr.for="{{'fieldType'+i}}">Field Type</label>
-                    <!-- form-control-lg -->
                     <select formControlName="fieldType" id="{{'fieldType'+i}}" class="form-control">
                         <option *ngFor="let type of fieldTypes" [value]="type.value">{{type.label}}</option>
                     </select>
@@ -32,7 +31,9 @@
             </div>
         
         </div>
-
+        <button class="btn btn-primary" (click)="addField()">
+            Add Field
+        </button>
     </form>
 
 </div>
