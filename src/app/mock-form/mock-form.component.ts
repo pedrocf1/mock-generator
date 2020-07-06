@@ -110,6 +110,7 @@ export class MockFormComponent implements OnInit {
     return formGroup
   } 
 
+  // how to create object inside property
 
 
   //utils
