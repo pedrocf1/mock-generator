@@ -33,6 +33,10 @@ export class MockFormComponent implements OnInit {
     return this.formMock.get("mockField") as FormArray
   }
 
+  getOptionalsFieldsFormGroupFrom=(formGroup:FormGroup):FormGroup=>{
+    return formGroup.get("optionalsFields") as FormGroup
+  }
+  
   getOptionalsField(index:number){
     return this.mockField.at(index).get('optionalsFields')
   }
@@ -46,19 +50,20 @@ export class MockFormComponent implements OnInit {
     console.log("this.formMock",this.formMock)
   }
   
-  getFieldTypes=()=>{
-    this.fieldTypes = this._mockSerivece.fieldTypes()
-  }
-
   initiateFormMock=()=>{
     this.formMock = this._fb.group({
       mockField: this._fb.array([this.buildField()])
     })
   }
+  
+  getFieldTypes=()=>{
+    this.fieldTypes = this._mockSerivece.fieldTypes()
+  }
 
   addField=()=>{
-    // console.log("ADD FIELD",this.mockField)
+    // console.log("this.mockField", this.mockField.value) // stringfy quando for imprimir pra o usuario
     this.mockField.push(this.buildField())
+    console.log("this.mockField", this.mockField)
   }
 
   buildField=(): FormGroup=>{
@@ -66,43 +71,54 @@ export class MockFormComponent implements OnInit {
       fieldName:["",[Validators.required]],
       fieldType:["",[Validators.required]]
     })
-    formGroup.get("fieldType").valueChanges.subscribe(value=> this.fieldTypeSelection(formGroup, value))
+    formGroup.get("fieldType").valueChanges.subscribe(value=>{
+      // console.log("this.mockField.value[0]", this.mockField.value[0])
+      this.fieldTypeSelection(formGroup, value)
+    })
     return formGroup
   }
-
-  getOptionalsFieldsFormGroupFrom=(formGroup:FormGroup):FormGroup=>{
-    return formGroup.get("optionalsFields") as FormGroup
-  }
+  
   
   fieldTypeSelection=(formGroup:FormGroup, fieldType:string)=>{
     const formField = this.buildOptionalFields(fieldType)
     if(formField){
+      console.log("vou add o optionalsFields", formField)
       formGroup.addControl("optionalsFields", formField)
+      formGroup.get("optionalsFields").valueChanges.subscribe(value=>{console.log("ASDSAD",this)})
     }else{
       formGroup.removeControl("optionalsFields")
     }
-    
-    console.log("this.formMock",this.formMock)
   }
 
   buildOptionalFields=(fieldType):FormGroup=>{
     const {funcValidator, validatorType} = MockValidators.getValidator(fieldType)
     let formGroup = null
-
+    console.log("buildOptionalFields funcValidator", funcValidator)
     if(funcValidator==null){
       return null
     }
 
     if (validatorType == "range") {
+      console.log("TYPE RANGE", validatorType)
       formGroup = this._fb.group({
         validatorType:[validatorType],
         minRange:[0],
         maxRange:[0]
-      },funcValidator)
+      });
+      (formGroup as FormGroup).setValidators(funcValidator(Number.MIN_VALUE, Number.MIN_VALUE));
     }
-    
     return formGroup
-  }
+  } 
 
+
+
+  //utils
+  
+  changeType(i){
+    console.log(this.mockField.value[i])
+    if (!this.mockField.value[i].fieldType.includes("Range")) {
+      delete this.mockField.value[i].optionalsFields
+    }
+  }
 
 }

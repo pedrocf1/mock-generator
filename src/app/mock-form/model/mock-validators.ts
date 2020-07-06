@@ -2,9 +2,6 @@ import { ValidationErrors, AbstractControl, ValidatorFn } from '@angular/forms';
 
 export class MockValidators  {
 
-    // implements ValidationErrors
-
-
     static getValidator=(fieldType:string)=>{
         if(fieldType.includes("Range")){
             return {funcValidator:MockValidators.rangeValidator, validatorType:"range"}
@@ -14,14 +11,13 @@ export class MockValidators  {
 
     }
 
+    static rangeValidator=(min:number, max:number)=>{
+        return (c: AbstractControl): {[key: string]: boolean} | null =>{
 
-    static rangeValidator=(c: AbstractControl): {[key: string]: boolean} | null =>{
-        console.log("rangeValidator",c)
-        // if (c.value !== null && (isNaN(c.value) || c.value<min || c.value>max)) {
-        //     return {'range':true}
-        // }
-        return null
-   }
-    
-
+            if (c.value !== null && (c.get("minRange").value > c.get("maxRange").value)) {
+                return {'range':true}
+            }
+            return null
+        }
+    }
 }

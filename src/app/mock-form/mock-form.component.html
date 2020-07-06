@@ -15,7 +15,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label attr.for="{{'fieldType'+i}}">Field Type</label>
-                    <select formControlName="fieldType" id="{{'fieldType'+i}}" class="form-control">
+                    <select formControlName="fieldType" id="{{'fieldType'+i}}" (change)="changeType(i)" class="form-control">
                         <option *ngFor="let type of fieldTypes" [value]="type.value">{{type.label}}</option>
                     </select>
                 </div>
@@ -27,6 +27,7 @@
                         <label for="">Max Range</label>
                         <input type="text" formControlName="maxRange" class="form-control" aria-describedby="maxRange" placeholder="maxRange">
                     </div>
+                    {{mockField[i]|json}}
                 </div>
             </div>
         
