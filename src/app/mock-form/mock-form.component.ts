@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl, ValidatorFn, ValidationErrors, Form } from '@angular/forms';
 import { MockFormService } from './mock-form.service';
 import { FieldType } from './model/fieldType.interface';
 import { MockValidators } from './model/mock-validators';
@@ -37,7 +37,7 @@ export class MockFormComponent implements OnInit {
     return formGroup.get("optionalsFields") as FormGroup
   }
   
-  getOptionalsField(index:number){
+  getOptionalsFieldByIndex(index:number){
     return this.mockField.at(index).get('optionalsFields')
   }
 
@@ -68,11 +68,11 @@ export class MockFormComponent implements OnInit {
 
   buildField=(): FormGroup=>{
     const formGroup=this._fb.group({
+      validatorType:["object"],
       fieldName:["",[Validators.required]],
       fieldType:["",[Validators.required]]
     })
     formGroup.get("fieldType").valueChanges.subscribe(value=>{
-      // console.log("this.mockField.value[0]", this.mockField.value[0])
       this.fieldTypeSelection(formGroup, value)
     })
     return formGroup
@@ -82,7 +82,6 @@ export class MockFormComponent implements OnInit {
   fieldTypeSelection=(formGroup:FormGroup, fieldType:string)=>{
     const formField = this.buildOptionalFields(fieldType)
     if(formField){
-      console.log("vou add o optionalsFields", formField)
       formGroup.addControl("optionalsFields", formField)
       formGroup.get("optionalsFields").valueChanges.subscribe(value=>{console.log("ASDSAD",this)})
     }else{
@@ -94,32 +93,43 @@ export class MockFormComponent implements OnInit {
     const {funcValidator, validatorType} = MockValidators.getValidator(fieldType)
     let formGroup = null
     console.log("buildOptionalFields funcValidator", funcValidator)
+
     if(funcValidator==null){
       return null
     }
-
+    
+    console.log("TYPE", validatorType)
     if (validatorType == "range") {
-      console.log("TYPE RANGE", validatorType)
-      formGroup = this._fb.group({
-        validatorType:[validatorType],
-        minRange:[0],
-        maxRange:[0]
-      });
-      (formGroup as FormGroup).setValidators(funcValidator(Number.MIN_VALUE, Number.MIN_VALUE));
+      formGroup = this.buildRangeGroup(validatorType, funcValidator)
+
+    }else if(validatorType == "Object"){
+      formGroup = this.buildField();
+      (formGroup as FormGroup).setValidators(funcValidator());
+      console.log("Vou add um object", formGroup)
     }
     return formGroup
   } 
 
   // how to create object inside property
 
+  buildRangeGroup(validatorType, funcValidator){
+    let formGroup
+    formGroup = this._fb.group({
+      validatorType:[validatorType],
+      minRange:[0],
+      maxRange:[0]
+    });
+    (formGroup as FormGroup).setValidators(funcValidator(Number.MIN_VALUE, Number.MIN_VALUE));
+    return formGroup
+  }
 
   //utils
   
   changeType(i){
-    console.log(this.mockField.value[i])
-    if (!this.mockField.value[i].fieldType.includes("Range")) {
-      delete this.mockField.value[i].optionalsFields
-    }
+    console.log("changeType", i)
+    // if (!this.mockField.value[i].fieldType.includes("Range")) {
+      // delete this.mockField.value[i].optionalsFields
+    // }
   }
 
 }

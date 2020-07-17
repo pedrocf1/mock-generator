@@ -36,6 +36,10 @@ export class MockFormService {
       {
         value:"AlphanumericRange",
         label:"Alphanumeric Range"
+      },
+      {
+        value:"Object",
+        label:"Object"
       }
 
     ]

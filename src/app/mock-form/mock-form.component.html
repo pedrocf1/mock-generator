@@ -7,6 +7,10 @@
     <form [formGroup]="formMock">
 
         <div formArrayName="mockField">
+            <!-- 
+                vai ter um component pra object, outro pra range e por ai vai...
+            -->
+
             <div class="row" [formGroupName]="i" *ngFor="let formField of mockField.controls; let i=index">
                 <div class="form-group col-md-4">
                     <label attr.for="{{'fieldName'+i}}">Field Name</label>
@@ -19,21 +23,31 @@
                         <option *ngFor="let type of fieldTypes" [value]="type.value">{{type.label}}</option>
                     </select>
                 </div>
-                <div *ngIf="getOptionalsField(i)?.get('validatorType').value=='range'" class="form-group col-md-4">
-                    <div formGroupName="optionalsFields">
-                        <label for="">Min Range</label>
-                        <input type="text" formControlName="minRange" class="form-control" aria-describedby="minRange" placeholder="minRange">
-
-                        <label for="">Max Range</label>
-                        <input type="text" formControlName="maxRange" class="form-control" aria-describedby="maxRange" placeholder="maxRange">
+                <div *ngIf="getOptionalsFieldByIndex(i)?.get('validatorType').value=='range'" class="form-group col-md-4">
+                    <div formGroupName="optionalsFields" class="row">
+                        <div class="col-md-6">
+                            <label for="">Min Range</label>
+                            <input type="text" formControlName="minRange" class="form-control" aria-describedby="minRange" placeholder="minRange">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Max Range</label>
+                            <input type="text" formControlName="maxRange" class="form-control" aria-describedby="maxRange" placeholder="maxRange">
+                        </div>
                     </div>
+                    <!-- fazer um component de range -->
+                </div>
+                <div  *ngIf="getOptionalsFieldByIndex(i)?.get('validatorType').value=='object'"  class="form-group col-offset-2 col-md-10">
+                       <mock-object-field [mockForm]="getOptionalsFieldByIndex(i)">
+                       </mock-object-field>
                 </div>
             </div>
         
         </div>
+
         <button class="btn btn-primary" (click)="addField()">
             Add Field
         </button>
+
     </form>
 
 </div>
