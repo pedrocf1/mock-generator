@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { FieldType } from '../model/fieldType.interface';
 
 @Component({
   selector: 'mock-object-field',
@@ -8,7 +9,8 @@ import { FormGroup } from '@angular/forms';
 })
 export class MockObjectFieldComponent implements OnInit {
 
-  @Input("mockForm") mockForm:any
+  @Input("mockForm") mockForm: FormGroup
+  @Input("fieldTypes") fieldTypes:Array<FieldType>
 
   constructor() { }
 

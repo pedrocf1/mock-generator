@@ -37,7 +37,11 @@
                     <!-- fazer um component de range -->
                 </div>
                 <div  *ngIf="getOptionalsFieldByIndex(i)?.get('validatorType').value=='object'"  class="form-group col-offset-2 col-md-10">
-                       <mock-object-field [mockForm]="getOptionalsFieldByIndex(i)">
+                       
+                        <mock-object-field 
+                            [mockForm]="getOptionalsFieldByIndex(i)"
+                            [fieldTypes]="fieldTypes"
+                        >
                        </mock-object-field>
                 </div>
             </div>

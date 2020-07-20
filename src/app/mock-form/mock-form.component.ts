@@ -26,8 +26,13 @@ function emailMatcher(c:AbstractControl): ValidationErrors|null{
 })
 export class MockFormComponent implements OnInit {
 
-  formMock:FormGroup
+  isArray:boolean
+  from:number
+  to:number
+
+  formMock:FormGroup // Fazer um obj pra isso aqui e mudar os negocios
   fieldTypes:Array<FieldType>
+
 
   get mockField():FormArray{
     return this.formMock.get("mockField") as FormArray
