@@ -1,20 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MockFormComponent } from './mock-form/mock-form.component';
 import { MockFormService } from './mock-form/mock-form.service';
-import { MockObjectFieldComponent } from './mock-form/mock-object-field/mock-object-field.component';
+import { MockFieldComponent } from './mock-form/mock-field/mock-field.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     MockFormComponent,
-    MockObjectFieldComponent
+    MockFieldComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     ReactiveFormsModule
   ],
   providers: [MockFormService],

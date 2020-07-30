@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MockObjectFieldComponent } from './mock-object-field.component';
+import { MockFieldComponent } from './mock-field.component';
 
 describe('MockObjectFieldComponent', () => {
-  let component: MockObjectFieldComponent;
-  let fixture: ComponentFixture<MockObjectFieldComponent>;
+  let component: MockFieldComponent;
+  let fixture: ComponentFixture<MockFieldComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MockObjectFieldComponent ]
+      declarations: [ MockFieldComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MockObjectFieldComponent);
+    fixture = TestBed.createComponent(MockFieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
