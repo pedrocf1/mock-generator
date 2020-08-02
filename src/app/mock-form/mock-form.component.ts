@@ -12,6 +12,9 @@ import { MockBody } from './model/mock-body';
 export class MockFormComponent implements OnInit {
 
   mockBody:MockBody
+  textString:string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvxyz"; 
+  numbersString:string = "0123456789"; 
+  especialString:string = `"'~'!@#$%¨&*()-_+=|\\/?:;.{}[]^~´<>,`; 
 
   ngOnInit(): void {
     this.initialize()
