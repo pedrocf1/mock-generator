@@ -2,22 +2,28 @@
 <div class="container-fluid pl-2 py-2">
     
     <div class="form-group">
-        <label>name</label>
+        <label>Name</label>
         <input class="form-control" [(ngModel)]="mockField.name">
     </div>
     <div class="form-group">
-        <label>type</label>
-        <input class="form-control" [(ngModel)]="mockField.type">
-    </div>
-    <div class="form-group">
+        <label>Type</label>
         <select [(ngModel)]="mockField.fieldType" class="form-control">
-          <option selected="true" value="select">Select a type</option>
           <option *ngFor="let fieldType of fieldTypes" [value]="fieldType.value">{{fieldType.label}}</option>
         </select>
     </div>
 
 
-    <button class="btn btn-outline-primary" type="button" data-toggle="collapse" 
+    <button *ngIf="mockField.fieldType == 'Object'"
+     class="ml-2 mt-2 btn btn-success" (click)="addField()">
+        Add Child Field
+    </button>
+
+    <optional-fields 
+        [fieldType]="mockField.fieldType" [optionFields]="mockField.optionFields"
+    >
+    </optional-fields>
+
+    <button *ngIf="mockField.children.length" class="btn btn-outline-primary" type="button" data-toggle="collapse" 
           [attr.data-target]="'#collapseExample'+isCollapsed" aria-expanded="false" 
           [attr.aria-controls]="'collapseExample'+isCollapsed">
         See Children
@@ -36,9 +42,5 @@
     </div>
     
 
-
-    <button class="ml-2 mt-2 btn btn-success" (click)="addField()">
-        Add Child Field
-    </button>
 
 </div>

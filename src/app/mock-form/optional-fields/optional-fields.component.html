@@ -1,0 +1,5 @@
+<p>optional-fields works! {{fieldType}}</p>
+<div class="container" *ngIf="fieldType?.toLowerCase().includes('range')">
+    <input class="form-control" type="number" [(ngModel)]="optionFields.minRange" placeholder="minimun range">
+    <input class="form-control" type="number" [(ngModel)]="optionFields.maxRange" placeholder="maximum range">
+</div>

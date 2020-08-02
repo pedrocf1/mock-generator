@@ -22,6 +22,14 @@ export class MockFormService {
         label:"Integer with Range"
       },
       {
+        value:"double",
+        label:"Double"
+      },
+      {
+        value:"doubleRange",
+        label:"Double with Range"
+      },
+      {
         value:"textOnly",
         label:"Text Only"
       },
@@ -43,6 +51,12 @@ export class MockFormService {
       }
 
     ]
+
+  }
+
+  createObject(mockObject){
+
+
 
   }
 

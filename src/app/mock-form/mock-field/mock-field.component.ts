@@ -15,14 +15,13 @@ export class MockFieldComponent implements OnInit {
 
   isCollapsed:number = Math.floor(Math.random() * 6) + 1  
 
-
   constructor(private _mockFormService:MockFormService) { }
 
   ngOnInit() {
     this.fieldTypes = this._mockFormService.fieldTypes()
-    setTimeout(() => {
-      console.log("mockField", this.mockField)
-    }, 5000);
+    // setTimeout(() => {
+    //   console.log("mockField", this.mockField)
+    // }, 5000);
   }
 
   addField(){

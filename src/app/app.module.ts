@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { MockFormComponent } from './mock-form/mock-form.component';
 import { MockFormService } from './mock-form/mock-form.service';
 import { MockFieldComponent } from './mock-form/mock-field/mock-field.component';
+import { OptionalFieldsComponent } from './mock-form/optional-fields/optional-fields.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     MockFormComponent,
-    MockFieldComponent
+    MockFieldComponent,
+    OptionalFieldsComponent
   ],
   imports: [
     BrowserModule,
