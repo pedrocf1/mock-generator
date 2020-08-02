@@ -38,12 +38,20 @@ export class MockFormService {
         label:"Text Only Range"
       },
       {
+        value:"textOnlyWithEspecialRange",
+        label:"Alphanumeric With Especial Caracteres Range"
+      },
+      {
         value:"Alphanumeric",
         label:"Alphanumeric"
       },
       {
         value:"AlphanumericRange",
         label:"Alphanumeric Range"
+      },
+      {
+        value:"AlphanumericEspecialRange",
+        label:"Alphanumeric Especial Caracteres Range"
       },
       {
         value:"Object",

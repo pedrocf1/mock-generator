@@ -46,8 +46,10 @@ export class MockFormComponent implements OnInit {
       return this.generateRandomRange(Number.MIN_VALUE, Number.MAX_VALUE)
     }else if(fieldType == 'doubleRange'){
       return this.generateRandomRange(Number.MIN_VALUE, Number.MAX_VALUE)
-    }else if(true){
-
+    }else if(fieldType == 'textOnly'){
+      return this.generateRandomRange(Number.MIN_VALUE, Number.MAX_VALUE)
+    }else if(fieldType == 'textOnlyRange'){
+      return this.generateRandomRange(Number.MIN_VALUE, Number.MAX_VALUE)
     }
   }
 
