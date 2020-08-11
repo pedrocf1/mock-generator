@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Types } from '../model/types.enum';
 
 @Component({
   selector: 'optional-fields',
@@ -7,13 +8,14 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class OptionalFieldsComponent implements OnInit {
 
-  optionalFieldType:string
+  optionalFieldType:Types
 
-  @Input() set fieldType(fieldType:string){
+  @Input() set fieldType(fieldType:Types){
     this.optionalFieldType = fieldType
     this.fieldType&&this.generateOptionField()
   }
-  get fieldType():string{
+
+  get fieldType():Types{
     return this.optionalFieldType
   }
 
@@ -26,15 +28,17 @@ export class OptionalFieldsComponent implements OnInit {
   }
 
   generateOptionField(){
-    console.log("VOU SETAR", this.fieldType, this.fieldType.toLowerCase().includes('range'))
-    // if (this.fieldType.toLowerCase().includes('range')) {
-    //   this.optionFields={
-    //     minRange:0,
-    //     maxRange:1
-    //   }
-    // }else{
-    //   this.optionFields=null
-    // }
+    console.log("VOU SETAR", this.fieldType)
+  }
+
+  isRangeField():boolean{
+    
+    if(Types.IntRange == this.fieldType || Types.DoubleRange == this.fieldType || Types.TextOnlyRange == this.fieldType ||
+       Types.TextOnlyWithEspecialRange == this.fieldType || Types.AlphanumericRange == this.fieldType || Types.AlphanumericEspecialRange == this.fieldType)
+    {
+      return true
+    }
+    return false
   }
 
 }

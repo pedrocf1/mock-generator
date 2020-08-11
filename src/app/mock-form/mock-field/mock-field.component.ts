@@ -19,15 +19,10 @@ export class MockFieldComponent implements OnInit {
 
   ngOnInit() {
     this.fieldTypes = this._mockFormService.fieldTypes()
-    // setTimeout(() => {
-    //   console.log("mockField", this.mockField)
-    // }, 5000);
   }
 
   addField(){
     this.mockField.children.push(new MockField(null))
   }
-
-
 
 }

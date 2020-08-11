@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FieldType } from './model/fieldType.interface';
+import { Types } from './model/types.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -14,57 +15,51 @@ export class MockFormService {
 
     return[
       {
-        value:"int",
+        value: Types.Int,
         label:"Interger"
       },
       {
-        value:"intRange",
+        value: Types.IntRange,
         label:"Integer with Range"
       },
       {
-        value:"double",
+        value: Types.Double,
         label:"Double"
       },
       {
-        value:"doubleRange",
+        value: Types.DoubleRange,
         label:"Double with Range"
       },
       {
-        value:"textOnly",
+        value:Types.TextOnly,
         label:"Text Only"
       },
       {
-        value:"textOnlyRange",
+        value:Types.TextOnlyRange,
         label:"Text Only Range"
       },
       {
-        value:"textOnlyWithEspecialRange",
+        value:Types.TextOnlyWithEspecialRange,
         label:"Alphanumeric With Especial Caracteres Range"
       },
       {
-        value:"Alphanumeric",
+        value:Types.Alphanumeric,
         label:"Alphanumeric"
       },
       {
-        value:"AlphanumericRange",
+        value:Types.AlphanumericRange,
         label:"Alphanumeric Range"
       },
       {
-        value:"AlphanumericEspecialRange",
+        value:Types.AlphanumericEspecialRange,
         label:"Alphanumeric Especial Caracteres Range"
       },
       {
-        value:"Object",
+        value:Types.Object,
         label:"Object"
       }
 
     ]
-
-  }
-
-  createObject(mockObject){
-
-
 
   }
 

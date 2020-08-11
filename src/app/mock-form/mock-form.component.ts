@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FieldType } from './model/fieldType.interface';
 import { MockField } from './model/mock-field';
 import { MockBody } from './model/mock-body';
+import { Types } from './model/types.enum';
 
 
 @Component({
@@ -35,28 +36,52 @@ export class MockFormComponent implements OnInit {
     console.log("this.mockBody", this.mockBody)
     this.mockBody.fields.forEach(mockField => {
       obj[mockField.name] = this.generateMockFieldValue(mockField.fieldType, mockField.optionFields)
-    });
+    })
     console.log("OBJ GERADO", obj)
   }
 
-  generateMockFieldValue(fieldType:string, optionFields):any{
-    console.log("optionFields",optionFields)
-    if(fieldType == 'int'){
-      return Math.round(this.generateRandomRange(Number.MIN_VALUE, Number.MAX_VALUE))
-    }else if(fieldType == 'intRange'){
+  generateMockFieldValue(fieldType:Types, optionFields):any{
+    if(fieldType == Types.Int){
+      return Math.ceil(this.generateRandomRange())
+    }else if(fieldType == Types.IntRange){
       return Math.round(this.generateRandomRange(optionFields.minRange, optionFields.maxRange))
-    }else if(fieldType == 'double'){
-      return this.generateRandomRange(Number.MIN_VALUE, Number.MAX_VALUE)
-    }else if(fieldType == 'doubleRange'){
-      return this.generateRandomRange(Number.MIN_VALUE, Number.MAX_VALUE)
-    }else if(fieldType == 'textOnly'){
-      return this.generateRandomRange(Number.MIN_VALUE, Number.MAX_VALUE)
-    }else if(fieldType == 'textOnlyRange'){
-      return this.generateRandomRange(Number.MIN_VALUE, Number.MAX_VALUE)
+    }else if(fieldType == Types.Double){
+      return this.generateRandomRange()
+    }else if(fieldType == Types.DoubleRange){
+      return Math.round(this.generateRandomRange(optionFields.minRange, optionFields.maxRange))
+    }else if(fieldType == Types.TextOnly){
+      return this.generateStr(null, null, false, false)
+    }else if(fieldType == Types.TextOnlyRange){
+      return this.generateStr(optionFields.minRange, optionFields.maxRange, false, false)
+    }else if(fieldType == Types.Alphanumeric){
+      return this.generateStr()
+    }else if(fieldType == Types.AlphanumericRange){
+      return this.generateStr(optionFields.minRange, optionFields.maxRange, false, true)
+    }else if(fieldType == Types.AlphanumericEspecialRange){
+      return this.generateStr(optionFields.minRange, optionFields.maxRange, true, true)
+    }else if(fieldType == Types.TextOnlyWithEspecialRange){
+      return this.generateStr(optionFields.minRange, optionFields.maxRange, true)
     }
   }
 
-  generateRandomRange(min:number, max:number) {
+  private generateStr(min:number=null, max:number=null, especial:boolean=false, numbers:boolean=false):string{
+    let str:string = this.textString+(especial?this.especialString:"")
+    str += numbers?this.numbersString:""
+
+    const strLength:number = str.length
+    let newStr:string = ""
+
+    const loopNumber:number =  Math.round(this.generateRandomRange(min?min:0, max?max:strLength))
+    
+    for(let index = 0; index < loopNumber; index++) {
+      const randomNumber:number = Math.ceil(this.generateRandomRange(0, strLength-1))
+      newStr+=str[randomNumber]
+    }
+    
+    return newStr
+  }
+
+  private generateRandomRange(min:number=null, max:number=null) {
     min = min?min:Number.MIN_VALUE
     return Math.random() * (max?max:Number.MAX_VALUE - min) + min;
   }

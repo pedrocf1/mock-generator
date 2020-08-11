@@ -1,9 +1,9 @@
-import { JsonPipe } from '@angular/common'
+import { Types } from './types.enum'
 
 export class MockField  {
 
     name:string
-    fieldType:string
+    fieldType:Types
     children:Array<MockField>
     optionFields:any
 
