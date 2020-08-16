@@ -1,4 +1,8 @@
-{{isRangeField()}}
+
+<label>
+    isRangeField: {{isRangeField()}}
+</label>
+
 <div class="container" *ngIf="isRangeField()">
     <input class="form-control" type="number" [(ngModel)]="optionFields.minRange" placeholder="minimun range">
     <input class="form-control" type="number" [(ngModel)]="optionFields.maxRange" placeholder="maximum range">
