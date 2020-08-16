@@ -1,13 +1,13 @@
 export enum Types{
-    Int=0,
-    IntRange,
-    Double,
-    DoubleRange,
-    TextOnly,
-    TextOnlyRange,
-    TextOnlyWithEspecialRange,
-    Alphanumeric,
-    AlphanumericRange,
-    AlphanumericEspecialRange,
-    Object
+    Int="Int",
+    IntRange="IntRange",
+    Double="Double",
+    DoubleRange="DoubleRange",
+    TextOnly="TextOnly",
+    TextOnlyRange="TextOnlyRange",
+    TextOnlyWithEspecialRange="TextOnlyWithEspecialRange",
+    Alphanumeric="Alphanumeric",
+    AlphanumericRange="AlphanumericRange",
+    AlphanumericEspecialRange="AlphanumericEspecialRange",
+    Object="Object"
 }
