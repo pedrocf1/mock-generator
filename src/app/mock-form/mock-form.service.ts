@@ -66,7 +66,7 @@ export class MockFormService {
 
   }
   
-  public generateStr(min:number=null, max:number=null, especial:boolean=false, numbers:boolean=false):string{
+  private generateStr(min:number=null, max:number=null, especial:boolean=false, numbers:boolean=false):string{
     let str:string = this.textString+(especial?this.especialString:"")
     str += numbers?this.numbersString:""
 
@@ -83,9 +83,50 @@ export class MockFormService {
     return newStr
   }
 
-  public generateRandomRange(min:number=null, max:number=null) {
+  private generateRandomRange(min:number=null, max:number=null) {
     min = min?min:-9999999999
     return Math.random() * (max?max:9999999999 - min) + min
+  }
+
+  
+  public generateMockFieldValue(fieldType:Types, optionFields):any{
+
+    const typesRamdomValues = {
+      "Int":()=>{
+        return Math.ceil(this.generateRandomRange())
+      },
+      "IntRange":()=>{
+        return Math.round(this.generateRandomRange(optionFields.minRange, optionFields.maxRange))
+      },
+      "Double":()=>{
+        return this.generateRandomRange()
+      },
+      "DoubleRange":()=>{
+        return Math.round(this.generateRandomRange(optionFields.minRange, optionFields.maxRange))
+      },
+      "TextOnly":()=>{
+        return this.generateStr(null, null, false, false)
+      },
+      "TextOnlyRange":()=>{
+        return this.generateStr(optionFields.minRange, optionFields.maxRange, false, false)
+      },
+      "TextOnlyWithEspecialRange":()=>{
+        return this.generateStr()
+      },
+      "Alphanumeric":()=>{
+        return this.generateStr(optionFields.minRange, optionFields.maxRange, false, true)
+      },
+      "AlphanumericRange":()=>{
+        return this.generateStr(optionFields.minRange, optionFields.maxRange, true, true)
+      },
+      "AlphanumericEspecialRange":()=>{
+        return this.generateStr(optionFields.minRange, optionFields.maxRange, true)
+      },
+      "Object":()=> {return {}},
+    }
+    
+    return typesRamdomValues[fieldType]()
+
   }
 
 }
