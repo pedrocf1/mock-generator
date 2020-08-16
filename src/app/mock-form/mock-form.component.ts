@@ -49,7 +49,4 @@ export class MockFormComponent implements OnInit {
     console.log("OBJ GERADO", this.finalObj)
   }
 
-
-
-
 }

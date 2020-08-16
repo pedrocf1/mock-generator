@@ -14,7 +14,7 @@ export class MockFormService {
   especialString:string = `"'~'!@#$%¨&*()-_+=|\\/?:;.{}[]^~´<>,`; 
   constructor() { }
 
-  fieldTypes=():Array<FieldType>=>{
+  public fieldTypes=():Array<FieldType>=>{
 
     return[
       {
@@ -58,34 +58,15 @@ export class MockFormService {
         label:"Alphanumeric Especial Caracteres Range"
       },
       {
+        value:Types.Array,
+        label:"Array"
+      },
+      {
         value:Types.Object,
         label:"Object"
       }
-
     ]
 
-  }
-  
-  private generateStr(min:number=null, max:number=null, especial:boolean=false, numbers:boolean=false):string{
-    let str:string = this.textString+(especial?this.especialString:"")
-    str += numbers?this.numbersString:""
-
-    const strLength:number = str.length
-    let newStr:string = ""
-
-    const loopNumber:number =  Math.round(this.generateRandomRange(min?min:0, max?max:strLength))
-    
-    for(let index = 0; index < loopNumber; index++) {
-      const randomNumber:number = Math.ceil(this.generateRandomRange(0, strLength-1))
-      newStr+=str[randomNumber]
-    }
-    
-    return newStr
-  }
-
-  private generateRandomRange(min:number=null, max:number=null) {
-    min = min?min:-9999999999
-    return Math.random() * (max?max:9999999999 - min) + min
   }
 
   
@@ -127,6 +108,28 @@ export class MockFormService {
     
     return typesRamdomValues[fieldType]()
 
+  }
+
+  private generateStr(min:number=null, max:number=null, especial:boolean=false, numbers:boolean=false):string{
+    let str:string = this.textString+(especial?this.especialString:"")
+    str += numbers?this.numbersString:""
+
+    const strLength:number = str.length
+    let newStr:string = ""
+
+    const loopNumber:number =  Math.round(this.generateRandomRange(min?min:0, max?max:strLength))
+    
+    for(let index = 0; index < loopNumber; index++) {
+      const randomNumber:number = Math.ceil(this.generateRandomRange(0, strLength-1))
+      newStr+=str[randomNumber]
+    }
+    
+    return newStr
+  }
+
+  private generateRandomRange(min:number=null, max:number=null) {
+    min = min?min:-9999999999
+    return Math.random() * (max?max:9999999999 - min) + min
   }
 
 }

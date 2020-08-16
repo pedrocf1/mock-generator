@@ -41,4 +41,8 @@ export class OptionalFieldsComponent implements OnInit {
     return false
   }
 
+  // isArrayField():boolean{
+  //   return Types.Array == this.fieldType
+  // }
+
 }

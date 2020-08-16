@@ -9,5 +9,6 @@ export enum Types{
     Alphanumeric="Alphanumeric",
     AlphanumericRange="AlphanumericRange",
     AlphanumericEspecialRange="AlphanumericEspecialRange",
+    Array="Array",
     Object="Object"
 }

@@ -13,7 +13,7 @@
     </div>
 
 
-    <button *ngIf="mockField.fieldType == 'Object'"
+    <button *ngIf="mockField.fieldType == 'Object' || mockField.fieldType == 'Array'"
      class="ml-2 mt-2 btn btn-success" (click)="addField()">
         Add Child Field
     </button>
