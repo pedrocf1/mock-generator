@@ -118,7 +118,7 @@ export class MockFormService {
     let newStr:string = ""
 
     const loopNumber:number =  Math.round(this.generateRandomRange(min?min:0, max?max:strLength))
-    
+
     for(let index = 0; index < loopNumber; index++) {
       const randomNumber:number = Math.ceil(this.generateRandomRange(0, strLength-1))
       newStr+=str[randomNumber]
@@ -128,8 +128,8 @@ export class MockFormService {
   }
 
   private generateRandomRange(min:number=null, max:number=null) {
-    min = min?min:-9999999999
-    return Math.random() * (max?max:9999999999 - min) + min
+    min = min!==null?min:0
+    return Math.floor(Math.random() * (max - min + 1) + min);
   }
-
+C
 }
