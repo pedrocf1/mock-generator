@@ -39,14 +39,60 @@ export class MockFormComponent implements OnInit {
     console.log("this.mockBody", this.mockBody)
     this.mockBody.fields.forEach(mockField => {
       console.log("mockField",mockField)
-      if (mockField.fieldType == Types.Object) {
-        this.finalObj[mockField.name] = this._mockFormService.generateMockFieldValue(mockField.fieldType, mockField.optionFields)
-        mockField.children.forEach(child=>this.finalObj[mockField.name][child.name] = this._mockFormService.generateMockFieldValue(child.fieldType, child.optionFields))
-      }else{
-        this.finalObj[mockField.name] = this._mockFormService.generateMockFieldValue(mockField.fieldType, mockField.optionFields)
-      }
+
+      this.createMockField(mockField)
+
+
     })
     console.log("OBJ GERADO", this.finalObj)
+  }
+
+  private createMockField(mockField){
+
+    switch (mockField.fieldType) {
+      case Types.Object:
+        this.createObjectField(mockField)
+      break;
+    
+      case Types.Array:
+        this.createArrayField(mockField)
+      break;
+      
+      default:
+        this.finalObj[mockField.name] = this._mockFormService.generateMockFieldValue(mockField.fieldType, mockField.optionFields)
+      break;
+    }
+
+  }
+
+  private createObjectField(mockField:MockField){
+    this.finalObj[mockField.name] = this._mockFormService.generateMockFieldValue(mockField.fieldType, mockField.optionFields)
+
+    mockField.children.forEach(child=>{
+      if(Types.Object === child.fieldType){
+        this.finalObj[mockField.name][child.name] = this._mockFormService.generateMockFieldValue(child.fieldType, child.optionFields)
+      }else{
+        this.createMockField(child)
+      }
+    })
+
+  }
+
+  private createArrayField(mockField:MockField){
+    this.finalObj[mockField.name] = this._mockFormService.generateMockFieldValue(mockField.fieldType, mockField.optionFields)
+
+    mockField.children.forEach(child=>{
+      if (Types.Array !== child.fieldType && Types.Object !== child.fieldType) {
+        for (let index = 0; index < 10; index++) {
+          this.finalObj[mockField.name].push(this._mockFormService.generateMockFieldValue(child.fieldType, child.optionFields))  
+        }
+
+      }else{
+        this.createMockField(child)
+      }
+      
+    })
+
   }
 
 }

@@ -103,9 +103,14 @@ export class MockFormService {
       "AlphanumericEspecialRange":()=>{
         return this.generateStr(optionFields.minRange, optionFields.maxRange, true)
       },
-      "Object":()=> {return {}},
+      "Object":()=> {
+        return {}
+      },
+      "Array":()=>{
+        return []
+      }
     }
-    
+    console.log("fieldType", fieldType)
     return typesRamdomValues[fieldType]()
 
   }
@@ -127,9 +132,9 @@ export class MockFormService {
     return newStr
   }
 
-  private generateRandomRange(min:number=null, max:number=null) {
+  private generateRandomRange(min:number=null, max:number=99999999) {
     min = min!==null?min:0
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
-C
+
 }
