@@ -12,15 +12,16 @@
         </select>
     </div>
 
-    <button *ngIf="mockField.fieldType == 'Object'"
-     class="ml-2 mt-2 btn btn-success" (click)="addField()">
-        Add Child Field
-    </button>
-
     <optional-fields 
         [fieldType]="mockField.fieldType" [optionFields]="mockField.optionFields"
     >
     </optional-fields>
+    
+    <button *ngIf="mockField.fieldType == 'Object' || mockField.fieldType == 'Array'"
+     class="ml-2 mt-2 btn btn-success" (click)="addField()">
+        Add Child Field
+    </button>
+
 
     <button *ngIf="mockField.children.length" class="btn btn-outline-primary" type="button" data-toggle="collapse" 
           [attr.data-target]="'#collapseExample'+isCollapsed" aria-expanded="false" 

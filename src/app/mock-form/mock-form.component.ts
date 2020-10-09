@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
 import { FieldType } from './model/fieldType.interface';
 import { MockField } from './model/mock-field';
 import { MockBody } from './model/mock-body';
 import { Types } from './model/types.enum';
 import { MockFormService } from './mock-form.service';
+import { Constants } from './model/Constants';
 
 
 @Component({
@@ -80,16 +81,22 @@ export class MockFormComponent implements OnInit {
 
   private createArrayField(mockField:MockField){
     this.finalObj[mockField.name] = this._mockFormService.generateMockFieldValue(mockField.fieldType, mockField.optionFields)
-
     mockField.children.forEach(child=>{
-      if (Types.Array !== child.fieldType && Types.Object !== child.fieldType) {
-        for (let index = 0; index < 10; index++) {
-          this.finalObj[mockField.name].push(this._mockFormService.generateMockFieldValue(child.fieldType, child.optionFields))  
-        }
+        for (let index = 0; index < mockField.optionFields[Constants.MIN_RANGE]; index++) {
+          if (child.fieldType !== String(Types.Object) && child.fieldType !== String(Types.Array)) {
+            this.finalObj[mockField.name].push(this._mockFormService.generateMockFieldValue(child.fieldType, child.optionFields))
 
-      }else{
-        this.createMockField(child)
-      }
+          }else if(child.fieldType === String(Types.Object)){
+            this.finalObj[mockField.name].push(this._mockFormService.generateMockFieldValue(child.fieldType, child.optionFields))
+            const arrayleng = this.finalObj[mockField.name].length-1
+            child.children.forEach(newChild=>{
+              this.finalObj[mockField.name][arrayleng][newChild.name] = this._mockFormService.generateMockFieldValue(newChild.fieldType, newChild.optionFields)
+            })
+            
+          }else{
+            this.finalObj[mockField.name].push(this._mockFormService.generateMockFieldValue(child.fieldType, child.optionFields))
+          }
+        }
       
     })
 

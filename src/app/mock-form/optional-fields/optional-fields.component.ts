@@ -33,16 +33,16 @@ export class OptionalFieldsComponent implements OnInit {
 
   isRangeField():boolean{
     
-    if(Types.IntRange == this.fieldType || Types.DoubleRange == this.fieldType || Types.TextOnlyRange == this.fieldType ||
-       Types.TextOnlyWithEspecialRange == this.fieldType || Types.AlphanumericRange == this.fieldType || Types.AlphanumericEspecialRange == this.fieldType)
+    if(Types.IntRange === this.fieldType || Types.DoubleRange === this.fieldType || Types.TextOnlyRange === this.fieldType ||
+       Types.TextOnlyWithEspecialRange === this.fieldType || Types.AlphanumericRange === this.fieldType || Types.AlphanumericEspecialRange === this.fieldType)
     {
       return true
     }
     return false
   }
 
-  // isArrayField():boolean{
-  //   return Types.Array == this.fieldType
-  // }
+  isArrayField():boolean{
+    return Types.Array === this.fieldType
+  }
 
 }
