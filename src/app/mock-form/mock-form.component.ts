@@ -70,10 +70,14 @@ export class MockFormComponent implements OnInit {
     this.finalObj[mockField.name] = this._mockFormService.generateMockFieldValue(mockField.fieldType, mockField.optionFields)
 
     mockField.children.forEach(child=>{
-      if(Types.Object === child.fieldType){
-        this.finalObj[mockField.name][child.name] = this._mockFormService.generateMockFieldValue(child.fieldType, child.optionFields)
-      }else{
-        this.createMockField(child)
+      switch (Types.Object) {
+        case child.fieldType:
+          this.finalObj[mockField.name][child.name] = this._mockFormService.generateMockFieldValue(child.fieldType, child.optionFields)  
+        break;
+
+        default:
+          this.createMockField(child)
+        break;
       }
     })
 
@@ -81,11 +85,17 @@ export class MockFormComponent implements OnInit {
 
   private createArrayField(mockField:MockField){
     this.finalObj[mockField.name] = this._mockFormService.generateMockFieldValue(mockField.fieldType, mockField.optionFields)
+    console.log("mockField.optionFields[Constants.MIN_RANGE]",mockField.optionFields[Constants.MIN_RANGE])
     mockField.children.forEach(child=>{
+      console.log("CHILD", child)
         for (let index = 0; index < mockField.optionFields[Constants.MIN_RANGE]; index++) {
           if (child.fieldType !== String(Types.Object) && child.fieldType !== String(Types.Array)) {
-            this.finalObj[mockField.name].push(this._mockFormService.generateMockFieldValue(child.fieldType, child.optionFields))
-
+            console.log("this.finalObj[mockField.name][index]", this.finalObj[mockField.name][index])
+            if(this.finalObj[mockField.name][index] === undefined){
+              this.finalObj[mockField.name][index] = {}
+            }
+            this.finalObj[mockField.name][index][child.name]=this._mockFormService.generateMockFieldValue(child.fieldType, child.optionFields)
+            
           }else if(child.fieldType === String(Types.Object)){
             this.finalObj[mockField.name].push(this._mockFormService.generateMockFieldValue(child.fieldType, child.optionFields))
             const arrayleng = this.finalObj[mockField.name].length-1
@@ -95,6 +105,7 @@ export class MockFormComponent implements OnInit {
             
           }else{
             this.finalObj[mockField.name].push(this._mockFormService.generateMockFieldValue(child.fieldType, child.optionFields))
+
           }
         }
       

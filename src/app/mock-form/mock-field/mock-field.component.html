@@ -1,7 +1,7 @@
 
 <div class="container-fluid pl-2 py-2">
     
-    <div class="form-group">
+    <div class="form-group" *ngIf="hasName" >
         <label>Name</label>
         <input class="form-control" [(ngModel)]="mockField.name">
     </div>
@@ -34,6 +34,8 @@
                 <ng-container *ngFor="let field of mockField.children">
                     <mock-field
                      [mockField]="field"
+                     isChild="true"
+                     [parentType]="mockField.fieldType"
                     >
                     </mock-field>
                 </ng-container>
