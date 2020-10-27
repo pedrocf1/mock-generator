@@ -130,7 +130,7 @@ export class MockFormService {
     return newStr;
   }
 
-  private generateRandomRange(min: number=null, max: number=99999999) {
+  private generateRandomRange(min: number= null, max: number= 99999999) {
     min = min !== null ? min : 0;
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
