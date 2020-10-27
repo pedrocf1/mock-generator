@@ -51,6 +51,7 @@ export class MockFormComponent implements OnInit {
 
     switch (mockField.fieldType) {
       case Types.Object:
+        console.log("Types.Object", mockField);
         this.createObjectField(mockField);
         break;
 
@@ -66,6 +67,7 @@ export class MockFormComponent implements OnInit {
   }
 
   private createObjectField(mockField: MockField) {
+    console.log("createObjectField", mockField);
     this.finalObj[mockField.name] = this.mockFormService.generateMockFieldValue(mockField.fieldType, mockField.optionFields);
 
     mockField.children.forEach(child => {
